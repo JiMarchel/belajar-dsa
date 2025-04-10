@@ -1,9 +1,13 @@
-use chapter4::queue::{hot_potato::hot_potato, queue::Queue};
+use chapter4::dequeue::palindrome_checker::palindrome_checker;
 
 mod chapter4;
 
 fn main() {
-    let names = vec!["Mon", "Tom", "Kew", "Lisa", "Marry", "bob"];
-    let survivor = hot_potato(names, 8);
-    println!("The survival person is {survivor}");
+    let pal = "rustsur";
+    let is_pal = palindrome_checker(pal);
+    println!("{pal} is palindrome string: {is_pal}");
+
+    let pal = "panda";
+    let is_pal = palindrome_checker(pal);
+    println!("{pal} is palindrome string: {is_pal}");
 }

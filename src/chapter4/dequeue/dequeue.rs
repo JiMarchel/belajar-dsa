@@ -69,10 +69,62 @@ impl<T> Deque<T> {
         IntoIter(self)
     }
 
-    pub iter(&self) -> Iter<T> {
-    let mut iterator = Iter {stack: Vec::new()};
-    for item in self.data.iter() {
-    iterator.stack.push(item)
+    pub fn iter(&self) -> Iter<T> {
+        let mut iterator = Iter { stack: Vec::new() };
+        for item in self.data.iter() {
+            iterator.stack.push(item)
+        }
+
+        iterator
+    }
+
+    pub fn iter_mut(&mut self) -> IterMut<T> {
+        let mut iterator = IterMut { stack: Vec::new() };
+        for item in self.data.iter_mut() {
+            iterator.stack.push(item);
+        }
+
+        iterator
+    }
 }
+
+pub struct IntoIter<T>(Deque<T>);
+impl<T: Clone> Iterator for IntoIter<T> {
+    type Item = T;
+    fn next(&mut self) -> Option<Self::Item> {
+        // first element of a tuple is not empty
+        if !self.0.data.is_empty() {
+            Some(self.0.data.remove(0))
+        } else {
+            None
+        }
+    }
 }
+
+pub struct Iter<'a, T: 'a> {
+    stack: Vec<&'a T>,
+}
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+    fn next(&mut self) -> Option<Self::Item> {
+        if 0 != self.stack.len() {
+            Some(self.stack.remove(0))
+        } else {
+            None
+        }
+    }
+}
+
+pub struct IterMut<'a, T: 'a> {
+    stack: Vec<&'a mut T>,
+}
+impl<'a, T> Iterator for IterMut<'a, T> {
+    type Item = &'a mut T;
+    fn next(&mut self) -> Option<Self::Item> {
+        if 0 != self.stack.len() {
+            Some(self.stack.remove(0))
+        } else {
+            None
+        }
+    }
 }
