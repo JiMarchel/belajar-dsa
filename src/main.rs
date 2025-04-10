@@ -1,12 +1,9 @@
-use chapter4::postfix_eval::postfix_eval;
+use chapter4::queue::{hot_potato::hot_potato, queue::Queue};
 
 mod chapter4;
 
 fn main() {
-    let postfix = "1 2 + 1 2 + *";
-    let res = postfix_eval(postfix);
-    match res {
-        Some(val) => println!("res = {val}"),
-        None => println!("{postfix} isn't a valid prefix"),
-    }
+    let names = vec!["Mon", "Tom", "Kew", "Lisa", "Marry", "bob"];
+    let survivor = hot_potato(names, 8);
+    println!("The survival person is {survivor}");
 }
