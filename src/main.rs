@@ -1,8 +1,8 @@
-use searching::{binary_search::binary_search, sequential_search::sequential_search};
+use searching::interpolation_search::interpolation_search;
 
 mod basic_data_structure;
 mod searching;
 fn main() {
-    let wk = [5, 8, 9];
-    println!("{}", binary_search(&wk, 5));
+    let wk = [1, 9, 10, 15, 16, 17, 19, 23, 27, 28, 29, 30, 32, 35];
+    println!("{}", interpolation_search(&wk, 30));
 }
